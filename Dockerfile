@@ -1,8 +1,8 @@
-FROM alpine:3.17
+FROM ubuntu:latest
 
-RUN apk add --update netatalk tini && rm -rf /var/cache/apk/*
+RUN apt update && apt install -y tini netatalk && apt -y clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 548
 
-CMD ["/sbin/tini", "/usr/sbin/netatalk", "-d"]
+CMD ["/usr/bin/tini", "--", "/usr/sbin/netatalk", "-d"]
 
